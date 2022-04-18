@@ -4,9 +4,9 @@ using System.Text;
 
 namespace BookSalesProjectEFCore.DTOs
 {
-    public class PublisherBookAdd
+    public class BookGenreAdd
     {
-        public string PublisherName { get; set; }
         public string BookName { get; set; }
+        public string GenreName { get; set; }
     }
 }

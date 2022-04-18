@@ -19,10 +19,15 @@ namespace BookSalesProjectEFCore
 2 - Author Crud
 3 - Genre Crud
 4 - Publisher Add
-5 - Buy the book");
+5 - Publisher Book Add
+6 - Book Genre Add
+7 - Buy the book");
                 SetChoise(ref choise);
                 switch (choise)
                 {
+                    case 0:
+                        Console.Clear();
+                        break;
                     case 1:
                         BookCrud();
                         break;
@@ -37,6 +42,14 @@ namespace BookSalesProjectEFCore
                         AddPublisher(ref publisher);
                         break;
                     case 5:
+                        PublisherBookAdd publisherBook = new PublisherBookAdd();
+                        AddBookPublisher(ref publisherBook);
+                        break;
+                    case 6:
+                        BookGenreAdd bookGenre = new BookGenreAdd();
+                        AddBookGenre(ref bookGenre);
+                        break;
+                    case 7:
                         PurchaseAdd purchaseAdd = new PurchaseAdd();
                         AddPurchase(ref purchaseAdd);
                         break;
@@ -59,6 +72,9 @@ namespace BookSalesProjectEFCore
                 SetChoise(ref choise);
                 switch (choise)
                 {
+                    case 0:
+                        Console.Clear();
+                        break;
                     case 1:
                         BookAdd bookAdd = new BookAdd();
                         AddBook(ref bookAdd);
@@ -105,6 +121,9 @@ namespace BookSalesProjectEFCore
                 SetChoise(ref choise);
                 switch (choise)
                 {
+                    case 0:
+                        Console.Clear();
+                        break;
                     case 1:
                         AuthorAdd authorAdd = new AuthorAdd();
                         AddAuthor(ref authorAdd);
@@ -143,6 +162,9 @@ namespace BookSalesProjectEFCore
                 SetChoise(ref choise);
                 switch (choise)
                 {
+                    case 0:
+                        Console.Clear();
+                        break;
                     case 1:
                         GenreAdd genreAdd = new GenreAdd();
                         AddGenre(ref genreAdd);
@@ -176,6 +198,32 @@ namespace BookSalesProjectEFCore
             publisher.Name = Console.ReadLine();
             if (string.IsNullOrEmpty(publisher.Name)) { Console.WriteLine("Enter again"); goto SetName; }
             publisherService.Add(AutoMapperProfile.MapperConfigure<Publisher, PublisherAdd>(publisher));
+        }
+        static void AddBookPublisher(ref PublisherBookAdd publisherBook)
+        {
+            BookPublisherService publisherService = new BookPublisherService(new BookPublisherRepository());
+        SetPublisherName:
+            Console.Write("Enter publisher name: ");
+            publisherBook.PublisherName = Console.ReadLine();
+            if (string.IsNullOrEmpty(publisherBook.PublisherName)) { Console.WriteLine("Enter again"); goto SetPublisherName; }
+        SetBookName:
+            Console.Write("Enter book name: ");
+            publisherBook.BookName = Console.ReadLine();
+            if (string.IsNullOrEmpty(publisherBook.BookName)) { Console.WriteLine("Enter again"); goto SetBookName; }
+            publisherService.Add(AutoMapperProfile.MapperConfigure<BookPublisher, PublisherBookAdd>(publisherBook));
+        }
+        static void AddBookGenre(ref BookGenreAdd bookGenreAdd)
+        {
+            BookGenreService bookGenreService = new BookGenreService(new BookGenreRepository());
+        SetBookName:
+            Console.Write("Enter book name: ");
+            bookGenreAdd.BookName = Console.ReadLine();
+            if (string.IsNullOrEmpty(bookGenreAdd.BookName)) { Console.WriteLine("Enter again"); goto SetBookName; }
+        SetGenreName:
+            Console.Write("Enter genre name: ");
+            bookGenreAdd.GenreName = Console.ReadLine();
+            if (string.IsNullOrEmpty(bookGenreAdd.GenreName)) { Console.WriteLine("Enter again"); goto SetGenreName; }
+            bookGenreService.Add(AutoMapperProfile.MapperConfigure<BookGenre, BookGenreAdd>(bookGenreAdd));
         }
         static void AddGenre(ref GenreAdd genre)
         {
